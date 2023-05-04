@@ -1,0 +1,38 @@
+package se.kth.iv1350.model;
+
+import Model.Sale;
+
+public class pamyment{
+    private String paymentMethod;
+    private int amountPaid;
+    private double amoutChange;
+
+
+    public double payment(double amount){
+        this.amoutChange = amoutChange;
+        return amoutChange;
+
+    }
+
+    public void startPayment(){
+
+
+    }
+    public void cancelPayment(){
+
+
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public int getAmountPaid() {
+        return this.amountPaid;
+    }
+    public double getAmoutChange(int totalPaid, Sale sale) {
+        this.amoutChange = amoutChange;
+        amoutChange = totalPaid -sale.getAmount();
+        return amoutChange;
+    }
+}
