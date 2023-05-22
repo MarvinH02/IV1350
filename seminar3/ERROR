@@ -1,0 +1,5 @@
+måndag 22 maj 2023 Exception has been thrown The network is down se.kth.iv1350.integration.NetworkDownException: The network is down 
+	at se.kth.iv1350.controller.Controller.scanItem(Controller.java:76)
+	at se.kth.iv1350.view.View.callScanItem(View.java:57)
+	at se.kth.iv1350.view.View.run(View.java:30)
+	at se.kth.iv1350.startup.Main.main(Main.java:29)
