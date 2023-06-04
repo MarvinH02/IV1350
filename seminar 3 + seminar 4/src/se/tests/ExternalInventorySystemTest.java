@@ -1,58 +1,40 @@
-package se.tests;
-import se.kth.iv1350.integration.ExternalInventorySystem;
-import se.kth.iv1350.integration.ItemNotFoundException;
-import se.kth.iv1350.integration.NetworkDownException;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import se.kth.iv1350.integration.*;
+import se.kth.iv1350.model.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+public class ExternalInventorySystemTest {
+    private ExternalInventorySystem ei;
 
 
+    @BeforeEach
+    void setUp() {
+        ei = new ExternalInventorySystem();
+    }
 
- public  class ExternalInventorySystemTest {
-     private ExternalInventorySystem ei;
+    @AfterEach
+    void tearDown() {
+        ei = null;
+    }
+    @Test
+    public void testsSearchForItem (){
+        ItemDTO itemA = new ItemDTO(5.0, "W2A",2,10, "Äpple");
+        // ItemDTO itemB = new ItemDTO(7.0, "W3A",6,4, "Banan");
+        Item toFind = ei.isValid("W2A");
+
+        assertEquals("W2A", itemA.getIdentifier(), toFind.getItemID());
+        assertEquals("Äpple" , itemA.getName() , toFind.getName());
+        assertEquals(2,itemA.getVAT(), toFind.getVAT());
+        assertEquals(5, itemA.getPrice(), toFind.getItemPrice());
+        assertEquals(10, itemA.getQuantity(), toFind.getQuantity());
 
 
-     @Before
-     public void setUp() {
-         ei = new ExternalInventorySystem();
-     }
+    }
 
-     @After
-     public void tearDown() {
-         ei = null;
-     }
-
-     @Test
-     public void testIfItemIsNotValid() {
-         String itemID = "AAAAA" ; // THIS ITEM ID DOES NOT EXIST;
-         try {
-             ei.itemFinder(itemID);
-             fail("Expected item not found exception");
-         } catch (NetworkDownException excp) {
-             fail("An error has occurred" + excp.getMessage());
-
-         } catch (ItemNotFoundException excp) {
-             // Exception is expected, no need to handle it here
-         }
-
-     }
-
-     @Test
-     public void netWorkDownException() {
-         String networkIsDown = "NetworkDownIdentifier"; //Hard coded id in the extrenal inventory system class.
-         try {
-             ei.itemFinder(networkIsDown);
-             fail("Expected a network down exception ");
-
-         } catch (NetworkDownException excp) {
-             // Exception is expected, no need to handle it here
-         } catch (ItemNotFoundException excp) {
-             fail("The item does not exist: " + excp.getMessage());
-         }
-
-     }
- }
+}
